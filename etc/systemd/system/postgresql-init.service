@@ -1,0 +1,4 @@
+[Service]
+Type=oneshot
+ExecStart=/opt/bin/postgresql-init.sh
+RemainAfterExit=true

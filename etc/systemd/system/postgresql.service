@@ -1,0 +1,8 @@
+[Unit]
+Description=Postgresql server
+Requires=postgresql-init.service
+After=postgresql-init.service
+
+[Service]
+ExecStartPost=/lib/systemd/create-pgdb /etc/postgresql/db-init.d
+Type=forking
