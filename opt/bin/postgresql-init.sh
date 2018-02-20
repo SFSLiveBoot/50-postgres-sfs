@@ -13,7 +13,7 @@ PG_VERSION=$(cat "$db_d/PG_VERSION")
 
 cat >"$svc_d/exec.conf" <<EOF
 [Service]
-Environment=PATH="/opt/postgres/lib/postgresql/$PG_VERSION/bin:$PATH"'
+Environment="PATH=/opt/postgres/lib/postgresql/$PG_VERSION/bin:$PATH"
 User=$(stat -c %U "$db_d")
 Group=$(stat -c %G "$db_d")
 ExecStart=/opt/postgres/lib/postgresql/$PG_VERSION/bin/pg_ctl start -l '$db_d/postgres.log' -w -D '$db_d'
