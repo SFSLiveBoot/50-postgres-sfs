@@ -8,7 +8,7 @@ mkdir -p "$svc_d"
 
 test "$(sysctl -n kernel.shmmax)" -ge 268435456 || sysctl kernel.shmmax=268435456 || true
 test -e "$db_d" || install -d -o 1000 "$db_d"
-test -e "$db_d/PG_VERSION" || chpst -u $(stat -L -c :%u:%g "$db_d") env LANG=en_US.utf8 $(find /opt/postgres/lib/postgresql -path "*/bin/initdb" | sort -nr | head -1) "$db_d"
+test -e "$db_d/PG_VERSION" || chpst -u $(stat -L -c :%u:%g "$db_d") env LANG=C.UTF-8 $(find /opt/postgres/lib/postgresql -path "*/bin/initdb" | sort -nr | head -1) "$db_d"
 PG_VERSION=$(cat "$db_d/PG_VERSION")
 
 cat >"$svc_d/exec.conf" <<EOF
