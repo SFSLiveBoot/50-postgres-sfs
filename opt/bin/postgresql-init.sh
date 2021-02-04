@@ -11,6 +11,8 @@ test -e "$db_d" || install -d -o 1000 "$db_d"
 test -e "$db_d/PG_VERSION" || sudo $(stat -L -c "-u#%u -g#%g" "$db_d") env LANG=C.UTF-8 $(find /opt/postgres/lib/postgresql -path "*/bin/initdb" | sort -nr | head -1) "$db_d"
 PG_VERSION=$(cat "$db_d/PG_VERSION")
 
+ldconfig -p | grep -q /opt/postgres/lib || ldconfig
+
 cat >"$svc_d/exec.conf" <<EOF
 [Service]
 Environment="PATH=/opt/postgres/lib/postgresql/$PG_VERSION/bin:$PATH"
