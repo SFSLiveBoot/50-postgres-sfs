@@ -10,7 +10,7 @@
 : "${repo_url:=http://apt.postgresql.org/pub/repos/apt}"
 : "${packages_url:=$repo_url/dists/${dist}-pgdg/main/binary-$deb_arch/Packages}"
 
-: ${pg_pkgs:=postgresql-contrib libpq5 postgresql-client-$PGVER postgresql-$PGVER postgresql-server-dev-$PGVER postgresql-plpython3-$PGVER}
+: ${pg_pkgs:=postgresql-contrib-$PGVER libpq5 postgresql-client-$PGVER postgresql-$PGVER postgresql-server-dev-$PGVER postgresql-plpython3-$PGVER}
 
 latest_version() {
   grep -e "^Package: postgresql-$PGVER\$" -e Version "$(dl_file "$packages_url")" |

@@ -8,7 +8,7 @@ pkg_list="$(dl_file "$packages_url")"
 mkdir -v -p "$DESTDIR/opt/postgres"
 
 for pkg_name in $pg_pkgs;do
-  pkg_fname="$(grep -e "^Package: $pkg_name\$" -e "^Filename: " "$pkg_list" | grep -A1 ^Package: | awk '/^Filename:/{print $2}')"
+  pkg_fname="$(grep -E "^(Provides|Package|Filename):" "$pkg_list" | grep -E -e "^(Package|Provides):.* $pkg_name(\$|,)" -e "^Filename: " | grep -EA1 "^(Provides|Package):" | awk '/^Filename:/{print $2}')"
   test -n "$pkg_fname" || {
     echo "Could not find package '$pkg_name' from $packages_url" >&2
     exit 1
