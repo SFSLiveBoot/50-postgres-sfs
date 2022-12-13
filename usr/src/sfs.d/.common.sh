@@ -3,7 +3,7 @@
 : ${lbu:=/opt/LiveBootUtils}
 . "$lbu/scripts/common.func"
 
-: "${PGVER:=13}"
+: "${PGVER:=15}"
 : "${dist:=$(lsb_release -cs)}"
 : "${deb_arch:=$(dpkg --print-architecture)}"
 
