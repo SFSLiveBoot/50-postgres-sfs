@@ -2,6 +2,7 @@
 
 set -e
 
+test ! -r "$(dirname "$0")/.env" || . "$(dirname "$0")/.env"
 . "$(dirname "$0")/.common.sh"
 
 test "x$(current_version)" = "x$(latest_version)"

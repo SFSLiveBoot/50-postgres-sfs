@@ -18,5 +18,5 @@ latest_version() {
 }
 
 current_version() {
-  "$DESTDIR/opt/postgres/lib/postgresql/$PGVER/bin/postgres" --version | grep -o "\<$PGVER.*"
+  "$DESTDIR/opt/postgres/lib/postgresql/$PGVER/bin/postgres" --version | sed -e 's/ *([^)]*)//g' -e 's/^postgres //'
 }
