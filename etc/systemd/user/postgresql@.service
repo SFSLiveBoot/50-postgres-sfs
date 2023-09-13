@@ -1,0 +1,13 @@
+[Unit]
+Description=PostgreSQL using instance name as database directory
+
+[Service]
+Environment=PGDATA=%f PGPREFIX=/opt/postgres
+EnvironmentFile=-%f/.env
+ExecStartPre=sh -e -c 'test -d "$PGDATA" || $(find "$PGPREFIX/lib/postgresql" -name pg_ctl | sort -V | tail -1) initdb'
+ExecStart=sh -e -c 'exec "$PGPREFIX/lib/postgresql/${PGVER:-$(cat "$PGDATA"/PG_VERSION)}/bin/postgres" $PG_OPTIONS'
+ExecStop=sh -e -c 'exec "$PGPREFIX/lib/postgresql/${PGVER:-$(cat "$PGDATA"/PG_VERSION)}/bin/pg_ctl" stop'
+ExecReload=sh -e -c 'exec "$PGPREFIX/lib/postgresql/${PGVER:-$(cat "$PGDATA"/PG_VERSION)}/bin/pg_ctl" reload'
+
+[Install]
+WantedBy=default.target
